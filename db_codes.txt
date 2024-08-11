@@ -1,0 +1,210 @@
+create database HRMS;
+
+use HRMS;
+
+CREATE TABLE users (
+    FullName varchar(255) NOT NULL,
+    Mailid varchar(255) NOT NULL,
+    Mobile_Number varchar(255) NOT NUll unique,
+    employee_id varchar(255) NOT NULL,
+    User_name varchar(255) NOT NULL unique,
+    Password BLOB(400) NOT NULL,
+    joiningdate DATE NOT NULL,
+    position varchar(255) NOT NULL,
+    Personid int AUTO_INCREMENT,
+    PRIMARY KEY (Personid)
+);
+
+DROP table users;
+
+SELECT * FROM users;
+
+
+CREATE TABLE role_tbl (
+	role_name varchar(200) NOT NULL,
+    role_id int,
+    PRIMARY KEY (role_id)
+);
+
+INSERT INTO role_tbl(role_name,role_id) VALUES("EMPLOYEE",2);
+
+SELECT * FROM role_tbl;
+
+DROP TABLE role_tbl;
+
+
+CREATE TABLE user_2_role_tbl(
+Personid int NOT NULL unique,
+Role_id int NOT NULL,
+User_2_role_id int AUTO_INCREMENT,
+PRIMARY KEY (User_2_role_id)
+);
+
+DROP TABLE user_2_role_tbl;
+
+SELECT * FROM user_2_role_tbl;
+
+INSERT INTO user_2_role_tbl(Personid,Role_id) VALUES (1,-1);
+
+CREATE TABLE holiday_list_tbl (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL
+);
+
+
+SELECT * FROM holiday_list_tbl;
+
+
+
+INSERT INTO role_tbl(role_name,role_id) VALUES("EMPLOYEE",2);
+
+
+
+
+CREATE TABLE features(
+feature_name VARCHAR(300) NOT NULL,
+feature_id INT AUTO_INCREMENT PRIMARY KEY
+);
+
+
+SELECT * FROM features;
+DROP table features;
+
+INSERT INTO features(feature_name) VALUE("HOLIDAY ADD");
+INSERT INTO features(feature_name) VALUE("HOLIDAY SHOW");
+INSERT INTO features(feature_name) VALUE("HOLIDAY DELETE");
+
+
+
+
+CREATE TABLE feature_2_role_tbl(
+role_id INT NOT NULL,
+Dashboard Varchar(100) NOT NULL,
+Employee_control Varchar(100) NOT NULL,
+Leave_Control Varchar(100) NOT NULL,
+Attendance_Control Varchar(100) NOT NULL,
+Holiday_Control Varchar(100) NOT NULL,
+Add_Employee Varchar(100) NOT NULL,
+Upd_Employee_Detail Varchar(100) NOT NULL,
+Show_Employee Varchar(100) NOT NULL,
+Edit_Employee Varchar(100) NOT NULL,
+Leave_Status Varchar(100) NOT NULL,
+Apply_Leave Varchar(100) NOT NULL,
+Leave_request Varchar(100) NOT NULL,
+Submit_Attendance Varchar(100) NOT NULL,
+Miscellaneous Varchar(100) NOT NULL,
+Add_Holiday Varchar(100) NOT NULL,
+Show_holiday Varchar(100) NOT NULL,
+Delete_Holiday Varchar(100) NOT NULL,
+feature_2_role_id INT AUTO_INCREMENT PRIMARY KEY
+);
+
+DROP TABLE feature_2_role_tbl;
+
+INSERT INTO feature_2_role_tbl(role_id,Dashboard,Employee_control,Leave_Control,Attendance_Control,Holiday_Control,Add_Employee,Upd_Employee_Detail,Show_Employee,Edit_Employee,Leave_Status,
+Apply_Leave,Leave_request,Submit_Attendance,Miscellaneous,Add_Holiday,Show_holiday,Delete_Holiday) VALUES(-1,"YES","YES","YES","YES","YES","YES","YES","YES","YES",
+"YES","YES","YES","YES","YES","YES","YES","YES");
+
+INSERT INTO feature_2_role_tbl(role_id,Dashboard,Employee_control,Leave_Control,Attendance_Control,Holiday_Control,Add_Employee,Upd_Employee_Detail,Show_Employee,Edit_Employee,Leave_Status,
+Apply_Leave,Leave_request,Submit_Attendance,Miscellaneous,Add_Holiday,Show_holiday,Delete_Holiday) VALUES(1,"NO","YES","YES","YES","YES","YES","YES","YES","YES",
+"YES","YES","YES","YES","YES","YES","YES","YES");
+
+INSERT INTO feature_2_role_tbl(role_id,Dashboard,Employee_control,Leave_Control,Attendance_Control,Holiday_Control,Add_Employee,Upd_Employee_Detail,Show_Employee,Edit_Employee,Leave_Status,
+Apply_Leave,Leave_request,Submit_Attendance,Miscellaneous,Add_Holiday,Show_holiday,Delete_Holiday) VALUES(2,"NO","YES","YES","YES","YES","NO","NO","YES","YES",
+"YES","YES","NO","YES","NO","NO","YES","NO");
+
+																																																																																																																																																																																																																																																																							
+
+ 
+
+CREATE TABLE audit_tbl(
+Personid int NOT NULL,
+FullName varchar(255) NOT NULL,
+Login_datetime DATETIME NOT NULL,
+login_id INT AUTO_INCREMENT PRIMARY KEY
+);
+
+select * from audit_tbl;
+
+CREATE TABLE Existing_Empolyee(
+Personid int NOT NULL,
+Isexisting Varchar(255) default 'YES',
+date_of_leaving DATETIME,
+existingID INT AUTO_INCREMENT PRIMARY KEY
+);
+
+DROP TABLE Existing_Empolyee;
+
+select * from Existing_Empolyee;
+
+INSERT INTO Existing_Empolyee(Personid) VALUES(3);
+
+
+SELECT usr.Personid,usr.FullName,usr.Mailid,usr.employee_id,usr.position,usr.joiningdate,ext_emp.Isexisting FROM users usr inner join Existing_Empolyee ext_emp on usr.Personid=ext_emp.Personid;
+
+
+CREATE TABLE Employee_details(
+Persionid int NOT NULL,
+AadharCardNo varchar(255) NOT NULL unique,
+PANCardNo varchar(255) NOT NULL unique,
+Address varchar(350) NOT NULL,
+FatherName varchar(300) NOT NULL,
+MotherName varchar(300) NOT NULL,
+SpouceName varchar(300) NOT NULL,
+Martricpercent varchar(400) NOT NULL,
+SchoolName varchar(400) NOT NULL,
+twelvethpercent varchar(400) NOT NULL,
+Collegename varchar(400) NOT NULL,
+graduationmark varchar(400) NOT NULL,
+graduationcollege varchar(400) NOT NULL,
+detail_2_personid INT AUTO_INCREMENT PRIMARY KEY
+);
+
+SELECT * FROM Employee_details;
+
+
+select usr.FullName,usr.Mailid,usr.Mobile_number,usr.employee_id,usr.joiningdate,emp_dtls.AadharCardNo,emp_dtls.PANCardNo,emp_dtls.Address,emp_dtls.FatherName,emp_dtls.MotherName,emp_dtls.SpouceName,emp_dtls.Martricpercent,emp_dtls.SchoolName,emp_dtls.twelvethpercent,emp_dtls.Collegename,emp_dtls.graduationmark,emp_dtls.graduationcollege from 
+(select FullName,Mailid,Mobile_Number,employee_id,joiningdate,personid from users where personid = 1) usr 
+inner join 
+Employee_details as emp_dtls 
+on usr.Personid = emp_dtls.Persionid;
+
+
+CREATE TABLE Attendance_register(
+personid int not null,
+attendance_date DATETIME not null,
+place_of_work varchar(100) not null,
+type varchar(10) not null,
+attendance_id INT auto_increment PRIMARY KEY
+);
+
+DROP TABLE Attendance_register;
+
+SELECT * FROM ATTENDANCE_REGISTER;
+
+
+CREATE TABLE Leave_management(
+personid int not null,
+Leave_name varchar(250) Not null,
+leave_reason varchar(400) not null,
+type varchar(100) not null,
+leave_from date	not null,
+leave_to date not null,
+status varchar(50) not null,
+leave_id INT auto_increment PRIMARY KEY
+);
+
+DROP TABLE Leave_management;
+Select COUNT(leave_id) from leave_management;
+
+
+select usr.employee_id,usr.FullName,lve.Leave_name,lve.personid,lve.leave_reason,lve.type,lve.leave_from,lve.leave_to,lve.leave_id,lve.status from users usr inner join Leave_management lve on usr.personid = lve.personid
+;
+
+SELECT COUNT(personid) as Emp_Online FROM Attendance_register WHERE DATE(attendance_date) = CURDATE();
+
+SELECT COUNT(PERSONID) AS EMP_OFFICE FROM ATTENDANCE_REGISTER WHERE TYPE = 'O' AND DATE(attendance_date) = CURDATE();
+
+SELECT usr.FullName,usr.employee_id FROM users usr inner join (SELECT personid FROM ATTENDANCE_REGISTER WHERE TYPE = 'H' AND DATE(attendance_date) = CURDATE()) TEMP_TBL ON usr.Personid = TEMP_TBL.personid;

@@ -1,0 +1,17 @@
+something_wrong = 'SOMETHING WENT WRONG !!!'
+added_attend = 'ATTENDANCE SUBMITTED !!!'
+already_exist = "ALREADY SUBMITTED !!!"
+emp_id_error = 'INVALID EMPLOYEE ID OR MONTH OR YEAR!!!'
+mandetory_error = 'ALL FIELDS ARE MANDETORY !!!'
+month_or_year_not_zero = 'MONTH AND YEAR CANOT BE ZERO !!!'
+Month_year_null = 'PLEASE SELECT MONTH AND YEAR BOTH !!!'
+not_present = 'NOT PRESENT !!!'
+same_value = 'SAME LOCATION ...ALEARDY UPDATED !!!'
+updated = 'UPDATED !!!'
+ftredt = "FUTURE DATE IS NOT POSSIBLE !!!"
+leave_apply = "LEAVE APPLIED !!!"
+leave_date_issue = "LEAVE FROM/ON DATE SHOULD BE BEFORE JOINING DATE !!!"
+approved = 'APPROVED !!!'
+rejected = 'REJECTED !!!'
+leave_strt_issue = "LEAVE CAN BE APPLIED FOR TODAY OR FOR FUTURE DATES !!!"
+leave_exist = "LEAVE EXIST ON SAME DATE !!!"
